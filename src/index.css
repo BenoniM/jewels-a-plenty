@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Homenaje&display=swap');
+
+@import "tailwindcss";
+
+@layer base{
+  @font-face {
+    font-family: 'Odena';
+    src: url("/src/assets/fonts/OdenaGlamour.otf");
+  }
+
+  *{
+    box-sizing: border-box;
+    margin: 0;
+    font-family: "Homenaje", sans-serif;
+  }
+}
+
+@theme {
+  --font-odena: 'Odena', sans-serif;
+  --font-homenaje: 'Homenaje', sans-serif;
+
+  --color-primary-1: #F0B629;
+  --color-primary-2: #BD8F20;
+  --color-primary-3: #8A6818;
+
+  --color-secondary-1: #001BAD;
+  --color-secondary-2: #000F61;
+  --color-secondary-3: #00072D;
+
+  --color-tertiary-1: #EFEBE1;
+  --color-tertiary-2: #D6D3CA;
+  --color-tertiary-3: #BDBAB2;
+}
+
+.nonagon-det{
+  clip-path: polygon(50% 0%, 83% 12%, 100% 43%, 94% 78%, 68% 100%, 32% 100%, 6% 78%, 0% 43%, 17% 12%);
+}
+
+.nonagon-mini{
+  clip-path: polygon(50% 100%, 83% 88%, 100% 57%, 94% 22%, 68% 0%, 32% 0%, 6% 22%, 0% 57%, 17% 88%);
+}
