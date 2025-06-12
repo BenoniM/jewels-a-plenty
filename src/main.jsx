@@ -12,12 +12,14 @@ import Home from './pages/Home.jsx'
 import Layout from './components/Layout.jsx'
 import Shop from './pages/Shop/Shop.jsx'
 import Shopdetail from './pages/Shop/Shopdetail.jsx'
+import About from './pages/About.jsx'
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
     <Route index element={<Home />}/>
     <Route path='shop' element={<Shop />}/>
     <Route path='shop/:id' element={<Shopdetail />}/>
+    <Route path='about' element={<About />}/>
   </Route>
 ))
 
