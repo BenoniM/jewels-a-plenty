@@ -1,4 +1,5 @@
 import React from 'react'
+import { useLoaderData, Await } from 'react-router'
 import AccLogo from "../../assets/images/Nav/Acc-Logo.svg"
 import CartLogo from "../../assets/images/Nav/Cart - Logo.svg"
 import ShopLogo from "../../assets/images/Shop/Shop-Logo.svg"
@@ -6,8 +7,33 @@ import NeckSml from "../../assets/images/Shop/Neck-Sml.svg"
 import Scroll from "../../assets/images/Shop/Scroll.svg"
 import CopyRight from "../../assets/images/Footer/Copy-Right.svg"
 
+import { getJewels } from '../../firebase'
+
+export function loader() {
+    return ({jewels: getJewels()})
+}
 
 const Shop = () => {
+
+    const [error, setError] = React.useState(null)
+
+    if (error) {
+        return <h1>There was an error: {error.message}</h1>
+    }
+
+    const dataPromise = useLoaderData()
+
+    function renderJewelElements(jewels) {
+        const jewelElements = jewels.map(jewel => (
+            <img className='rounded-2xl fill' src={jewel.imageUrl1} alt=""/>
+        ))
+
+        return (
+            <div className='bg-tertiary-1 flex rounded-2xl z-20 drop-shadow-xl w-1/3'>{jewelElements}</div>
+        )
+    }
+
+
   return (
     <div className='bg-primary-1 h-auto'>
         <div className='bg-cover bg-no-repeat bg-[url(./assets/images/Shop/Shop-Neck-Bg.png)] h-screen'>
@@ -65,7 +91,11 @@ const Shop = () => {
                     <div className='relative right-5 bottom-10 scale-175 flex h-56 w-1/3'>
                         <div className='relative z-10 rotate-z-6 left-40 top-2 bg-tertiary-1 rounded-2xl drop-shadow-xl w-1/3'></div>
 
-                        <div className='bg-tertiary-1 rounded-2xl z-20 drop-shadow-xl w-1/3'></div>
+                        <React.Suspense fallback={<h2>Loading...</h2>}>
+                            <Await resolve={dataPromise.jewels}>
+                                {renderJewelElements}
+                            </Await>
+                        </React.Suspense>
 
                         <div className='relative rounded-2xl right-25 top-4 bg-tertiary-1 rotate-z-12 drop-shadow-xl w-1/3'></div>
                     </div>

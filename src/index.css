@@ -34,6 +34,9 @@
   --color-metal-yellow: #FFC30B;
   --color-metal-white: #EAEAEA;
   --color-metal-rose: #F1A886;
+  
+  /* Default delay for loading animations */
+  --loading-delay: 1000ms;
 }
 
 .nonagon-det{
@@ -42,4 +45,38 @@
 
 .nonagon-mini{
   clip-path: polygon(50% 100%, 83% 88%, 100% 57%, 94% 22%, 68% 0%, 32% 0%, 6% 22%, 0% 57%, 17% 88%);
+}
+
+/* Loading ellipse animation */
+.loading-ellipse-path{
+  stroke: var(--color-primary-1);
+  stroke-width: 40;
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 0 1; /* start empty */
+  stroke-dashoffset: 0; /* start at 12 o'clock */
+  animation: ellipse-fill 2000ms linear forwards; /* fill once and stop, slower */
+  animation-delay: var(--loading-delay);
+}
+
+/* Make ellipse slower than nonagon by overriding duration */
+.ellipse-slow{
+  animation-duration: 3000ms;
+}
+
+@keyframes ellipse-fill{
+  0%{ stroke-dasharray: 0 1; }
+  100%{ stroke-dasharray: 1 0; }
+}
+
+/* rotation removed per request */
+
+/* Helper: start stroke at top for nonagon */
+.nonagon-start-top{
+  stroke-dashoffset: -0.89; /* approx aligns start to top vertex; tweak if needed */
+}
+
+/* Fill the nonagon interior with bg-secondary-3 */
+.nonagon-fill{
+  fill: var(--color-secondary-3);
 }
