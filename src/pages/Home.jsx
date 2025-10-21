@@ -490,39 +490,39 @@ function Home() {
         <main className='relative flex-1 flex flex-col items-center justify-center'>
           <div className='flex justify-center z-60 relative md:top-60 top-40 scale-60 md:scale-90'>
             
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-20 relative left-71 bottom-121 z-50'>
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-20 relative left-71 bottom-121 z-50 border-y-3 border-x-1 border-tertiary-1'>
               <img src={WhiteImg1} className='object-fill w-full h-full' alt="" />
             </div>
 
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-60 relative left-87 bottom-97 z-50'>
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-60 relative left-87 bottom-97 z-50 border-y-3 border-x-1 border-tertiary-1'>
               <img src={WhiteImg2} className='object-fit w-full h-full' alt="" />
             </div>
 
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-100 relative left-81 bottom-59 z-50'>
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-100 relative left-81 bottom-59 z-50 border-y-3 border-x-1 border-tertiary-1'>
               <img src={WhiteImg3} className='object-fit w-full h-full' alt="" />
             </div>
 
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 -rotate-40 relative left-49 bottom-27 z-50'>
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 -rotate-40 relative left-49 bottom-27 z-50 border-y-3 border-x-1 border-tertiary-1'>
               <img src={WhiteImg4} className='object-fit w-full h-full' alt="" />
             </div>
 
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-0 relative bottom-14 z-50'>
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-0 relative bottom-14 z-50 border-y-3 border-x-1 border-tertiary-1'>
               <img src={WhiteImg5} className='object-fill w-full h-full' alt="" />
             </div>
 
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-40 relative right-49 bottom-27 z-50'>
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-40 relative right-49 bottom-27 z-50 border-y-3 border-x-1 border-tertiary-1'>
               <img src={WhiteImg6} className='object-fit w-full h-full' alt="" />
             </div>
 
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-80 relative right-81 bottom-59 z-50'>
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-80 relative right-81 bottom-59 z-50 border-y-3 border-x-1 border-tertiary-1'>
               <img src={WhiteImg7} className='object-fit w-full h-full' alt="" />
             </div>
 
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 -rotate-60 relative right-87 bottom-97 z-50'>
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 -rotate-60 relative right-87 bottom-97 z-50 border-y-3 border-x-1 border-tertiary-1'>
               <img src={WhiteImg8} className='object-fit w-full h-full' alt="" />
             </div>
 
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25  rotate-340 relative right-71 bottom-121 z-50'>
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25  rotate-340 relative right-71 bottom-121 z-50 border-y-3 border-x-1 border-tertiary-1'>
               <img src={WhiteImg9} className='object-fit w-full h-full' alt="" />
             </div>
           </div>
