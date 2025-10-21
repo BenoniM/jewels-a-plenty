@@ -15,6 +15,16 @@ import FootMetal from "../assets/images/Footer/Foot-Metal.svg"
 import NecklaceHome from "../assets/images/Hero/NecklaceHome.svg"
 import RingsHome from "../assets/images/Hero/RingHome.svg"
 import EarringHome from "../assets/images/Hero/EarringHome.svg"
+import ScrollDown from "../assets/images/ScrollDown.svg"
+import WhiteImg1 from "../assets/images/Hero/9Images/pexels-ben-iwara-1033992193-27152278.jpg"
+import WhiteImg2 from "../assets/images/Hero/9Images/pexels-enginakyurt-1457801.jpg"
+import WhiteImg3 from "../assets/images/Hero/9Images/pexels-enginakyurt-1458867.jpg"
+import WhiteImg4 from "../assets/images/Hero/9Images/pexels-goumbik-627979.jpg"
+import WhiteImg5 from "../assets/images/Hero/9Images/pexels-leah-newhouse-50725-5091121.jpg"
+import WhiteImg6 from "../assets/images/Hero/9Images/pexels-noellegracephotos-906056.jpg"
+import WhiteImg7 from "../assets/images/Hero/9Images/pexels-olly-3768117.jpg"
+import WhiteImg8 from "../assets/images/Hero/9Images/pexels-pixabay-248077.jpg"
+import WhiteImg9 from "../assets/images/Hero/9Images/pexels-pixabay-264871.jpg"
  
 
 
@@ -60,7 +70,7 @@ function Home() {
 
   // Breakpoint-configurable movement amounts (yPercent) for SVGs
   const motion = {
-    ringsIn: { sm: -650, md: -560},
+    ringsIn: { sm: -650, md: -570},
     ringsOut: { sm: -1200, md: -1100},
     earsIn: { sm: -850, md: -905},
   }
@@ -362,6 +372,21 @@ function Home() {
         <div className='md:hidden fixed top-5 right-3 z-[9999] pointer-events-auto'>
           <img src={Hamburger} alt="" className='w-10 h-10 z-[9999] pointer-events-auto'/>
         </div>
+
+      {/* Scroll Down indicator (mobile + desktop positioning) */}
+      <div className='fixed z-[9999] text-primary-1 pointer-events-none md:bottom-15 md:right-4 bottom-3 left-1/2 md:left-auto -translate-x-1/2 md:translate-x-0'>
+        <div className='relative w-25 h-25'>
+          <img src={ScrollDown} alt='Scroll Down' className='absolute inset-0 m-auto w-10 h-10 animate-bounce' />
+          <svg viewBox='0 0 100 100' className='absolute inset-0 w-full h-full animate-[spin_12s_linear_infinite]'>
+            <defs>
+              <path id='scroll-circle-path' d='M50,50 m-35,0 a35,35 0 1,1 70,0 a35,35 0 1,1 -70,0' />
+            </defs>
+            <text fontSize='12' className='fill-current'>
+              <textPath href='#scroll-circle-path' startOffset='0%'>SCROLL DOWN • SCROLL DOWN • SCROLL DOWN • </textPath>
+            </text>
+          </svg>
+        </div>
+      </div>
       
       {/* Mobile layout */}
       <div ref={mobileSectionRef} className='md:hidden relative h-screen w-full bg-secondary-3 overflow-hidden'>
@@ -464,17 +489,42 @@ function Home() {
         {/* Main center area; scale down on desktop only to preserve mobile arrangement */}
         <main className='relative flex-1 flex flex-col items-center justify-center'>
           <div className='flex justify-center z-60 relative md:top-60 top-40 scale-60 md:scale-90'>
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 w-13 h-25 rotate-20 relative left-71 bottom-121 z-50 '></div>
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 w-13 h-25 rotate-60 relative left-87 bottom-97 z-50'></div>
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 w-13 h-25 rotate-100 relative left-81 bottom-59 z-50'></div>
+            
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-20 relative left-71 bottom-121 z-50'>
+              <img src={WhiteImg1} className='object-fill w-full h-full' alt="" />
+            </div>
 
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 w-13 h-25 -rotate-40 relative left-49 bottom-27 z-50'></div>
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 w-13 h-25 rotate-0 relative bottom-14 z-50'></div>
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 w-13 h-25 rotate-40 relative right-49 bottom-27 z-50'></div>
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-60 relative left-87 bottom-97 z-50'>
+              <img src={WhiteImg2} className='object-fit w-full h-full' alt="" />
+            </div>
 
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 w-13 h-25 rotate-80 relative right-81 bottom-59 z-50'></div>
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 w-13 h-25 -rotate-60 relative right-87 bottom-97 z-50'></div>
-            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 w-13 h-25  rotate-160 relative right-71 bottom-121 z-50'></div>
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-100 relative left-81 bottom-59 z-50'>
+              <img src={WhiteImg3} className='object-fit w-full h-full' alt="" />
+            </div>
+
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 -rotate-40 relative left-49 bottom-27 z-50'>
+              <img src={WhiteImg4} className='object-fit w-full h-full' alt="" />
+            </div>
+
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-0 relative bottom-14 z-50'>
+              <img src={WhiteImg5} className='object-fill w-full h-full' alt="" />
+            </div>
+
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-40 relative right-49 bottom-27 z-50'>
+              <img src={WhiteImg6} className='object-fit w-full h-full' alt="" />
+            </div>
+
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 rotate-80 relative right-81 bottom-59 z-50'>
+              <img src={WhiteImg7} className='object-fit w-full h-full' alt="" />
+            </div>
+
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25 -rotate-60 relative right-87 bottom-97 z-50'>
+              <img src={WhiteImg8} className='object-fit w-full h-full' alt="" />
+            </div>
+
+            <div onClick={() => navigate('/shop')} className='cursor-pointer bg-tertiary-1 scale-x-400 scale-y-125 w-13 h-25  rotate-340 relative right-71 bottom-121 z-50'>
+              <img src={WhiteImg9} className='object-fit w-full h-full' alt="" />
+            </div>
           </div>
 
           {/* Explore SVG overlay (centered, slides between categories) */}
