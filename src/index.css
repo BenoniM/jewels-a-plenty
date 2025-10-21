@@ -39,6 +39,28 @@
   --loading-delay: 1000ms;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbars but keep scrolling (cross-browser) */
+html, body {
+  /* allow scrolling */
+  overflow: auto;
+  /* hide scrollbar in IE/Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  /* ensure background fills any gutter area */
+  background-color: var(--color-secondary-3);
+}
+
+/* hide scrollbar in WebKit browsers */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
 .nonagon-det{
   clip-path: polygon(50% 0%, 83% 12%, 100% 43%, 94% 78%, 68% 100%, 32% 100%, 6% 78%, 0% 43%, 17% 12%);
 }

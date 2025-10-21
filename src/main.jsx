@@ -18,12 +18,12 @@ import Login from './pages/Authenticate/Login.jsx'
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Layout />}>
-    <Route index element={<Home />}/>
+    <Route index element={<Loading />}/>
+    <Route path='home' element={<Home />}/>
     <Route path='shop' element={<Shop />} loader={jewelsLoader}/>
     <Route path='shop/:id' element={<Shopdetail />}/>
     <Route path='login' element={<Login />}></Route>
     <Route path='about' element={<About />}/>
-    <Route path='loading' element={<Loading />}/>
   </Route>
 ))
 

@@ -1,8 +1,26 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { gsap } from 'gsap'
-import { useGSAP } from '@gsap/react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router'
 
 const Loading = () => {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const target = document.querySelector('.ellipse-slow')
+    const go = () => navigate('/home', { replace: true })
+    let timeoutId
+    if (target) {
+      target.addEventListener('animationend', go, { once: true })
+      // safety timeout in case event doesn't fire
+      timeoutId = setTimeout(go, 5000)
+    } else {
+      timeoutId = setTimeout(go, 4500)
+    }
+    return () => {
+      if (target) target.removeEventListener('animationend', go)
+      if (timeoutId) clearTimeout(timeoutId)
+    }
+  }, [navigate])
+
   return (
     <div className='bg-secondary-3 w-screen h-screen flex flex-col'>
         <div className='w-screen h-3/5 md:h-3/4 flex flex-col items-center justify-center'>
