@@ -11,12 +11,12 @@ import {
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAmnB4FrvzKZobK2zxzXcukYJ5qQoEuGvg",
-  authDomain: "jewels-a-plenty.firebaseapp.com",
-  projectId: "jewels-a-plenty",
-  storageBucket: "jewels-a-plenty.firebasestorage.app",
-  messagingSenderId: "264640278508",
-  appId: "1:264640278508:web:16b10eab2c40c3f6895ac9"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
