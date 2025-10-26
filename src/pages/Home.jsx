@@ -207,6 +207,11 @@ function Home() {
       // Fifth image (clone of center) starts off-screen below and will take the fourth's spot later
       gsap.set(fifthEl, { willChange: 'transform, width, height, left, top, opacity', transformOrigin: '50% 50%', left: '50%', right: 'auto', xPercent: -50, x: 0, top: '110%', width: '66.6667%', opacity: 1, boxSizing: 'border-box', marginLeft: 0, marginRight: 0 })
 
+      // Ensure Necklace and Rings are centered on mobile at init; keep Earrings as-is per request
+      if (neck && rings) {
+        gsap.set([neck, rings], { left: '50%', xPercent: -50 })
+      }
+
       const st = {
         trigger: section,
         start: 'top top',
