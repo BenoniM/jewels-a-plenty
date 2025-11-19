@@ -52,6 +52,124 @@ function Home() {
   const ringsTextRef = useRef(null)
   const earringsTextRef = useRef(null)
 
+  // Refs to overlay timelines for desktop and mobile
+  const overlayTlRef = useRef(null)
+  const mobileTlRef = useRef(null)
+
+  // Helpers: map a label to an absolute scroll Y and scroll to it
+  const getLabelY = (tlRef, label) => {
+    const tl = tlRef.current
+    if (!tl || !tl.scrollTrigger) return null
+    const st = tl.scrollTrigger
+    const time = tl.labels?.[label]
+    const dur = tl.duration()
+    if (typeof time !== 'number' || !dur) return null
+    const progress = time / dur
+    return st.start + (st.end - st.start) * progress
+  }
+  const scrollTimelineToLabel = (tlRef, label) => {
+    const y = getLabelY(tlRef, label)
+    if (y == null) return false
+    window.scrollTo({ top: y, behavior: 'smooth' })
+    return true
+  }
+
+  // Build ordered step positions for current mode
+  const getSteps = (isMobile) => {
+    if (isMobile) {
+      const tl = mobileTlRef.current
+      if (!tl || !tl.scrollTrigger) return []
+      const st = tl.scrollTrigger
+      return [
+        st.start,
+        getLabelY(mobileTlRef, 'overlayIn'),
+        getLabelY(mobileTlRef, 'm_neckToRings'),
+        getLabelY(mobileTlRef, 'm_ringsToEars'),
+        st.end,
+      ].filter(v => typeof v === 'number')
+    }
+    const tl = overlayTlRef.current
+    if (!tl || !tl.scrollTrigger) return []
+    const st = tl.scrollTrigger
+    return [
+      st.start,
+      getLabelY(overlayTlRef, 'neckToRings'),
+      getLabelY(overlayTlRef, 'ringsToEars'),
+      st.end,
+    ].filter(v => typeof v === 'number')
+  }
+
+  // Track whether we are at the very bottom to switch to "Scroll Up" mode
+  const [scrollUpMode, setScrollUpMode] = useState(false)
+  useEffect(() => {
+    const onScroll = () => {
+      const isMobile = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 767px)').matches
+      const steps = getSteps(isMobile)
+      if (!steps.length) return
+      const y = window.scrollY
+      const last = steps[steps.length - 1]
+      const first = steps[0]
+      const epsilon = 4
+      if (y >= last - epsilon) setScrollUpMode(true)
+      else if (y <= first + epsilon) setScrollUpMode(false)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    // initialize
+    onScroll()
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Smooth scroll to next stage (or previous when in up mode)
+  const handleScrollDown = () => {
+    const isMobile = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(max-width: 767px)').matches
+
+    if (isMobile) {
+      const tl = mobileTlRef.current
+      if (!tl || !tl.scrollTrigger) {
+        // Fallback: scroll to mobile section
+        if (mobileSectionRef.current) {
+          const rect = mobileSectionRef.current.getBoundingClientRect()
+          const y = rect.top + window.pageYOffset
+          window.scrollTo({ top: y, behavior: 'smooth' })
+        }
+        return
+      }
+      const st = tl.scrollTrigger
+      const steps = getSteps(true)
+      const y = window.scrollY
+      const epsilon = 2
+      if (scrollUpMode) {
+        // Find previous step strictly less than current y
+        const prev = [...steps].reverse().find(v => y - v > epsilon) ?? steps[0]
+        window.scrollTo({ top: prev, behavior: 'smooth' })
+      } else {
+        // Find next step strictly greater than current y
+        const next = steps.find(v => v - y > epsilon) ?? steps[steps.length - 1]
+        window.scrollTo({ top: next, behavior: 'smooth' })
+      }
+      return
+    }
+
+    // Desktop
+    const tl = overlayTlRef.current
+    if (!tl || !tl.scrollTrigger) {
+      const y = window.pageYOffset + window.innerHeight
+      window.scrollTo({ top: y, behavior: 'smooth' })
+      return
+    }
+    const st = tl.scrollTrigger
+    const steps = getSteps(false)
+    const y = window.scrollY
+    const epsilon = 2
+    if (scrollUpMode) {
+      const prev = [...steps].reverse().find(v => y - v > epsilon) ?? steps[0]
+      window.scrollTo({ top: prev, behavior: 'smooth' })
+    } else {
+      const next = steps.find(v => v - y > epsilon) ?? steps[steps.length - 1]
+      window.scrollTo({ top: next, behavior: 'smooth' })
+    }
+  }
+
   // Auto-play SVG sequence: Necklaces -> Rings -> Earrings (slide up/out and in from bottom)
   const playSvgSequence = () => {
     const neck = necklaceSvgRef.current
@@ -150,6 +268,7 @@ function Home() {
             anticipatePin: 1,
           }
         })
+        overlayTlRef.current = overlayTl
         .to(neckSection, { yPercent: 0, ease: 'none' })
         // Necklaces -> Rings (sync move + fade)
         .add('neckToRings', '+=0.1')
@@ -207,11 +326,6 @@ function Home() {
       // Fifth image (clone of center) starts off-screen below and will take the fourth's spot later
       gsap.set(fifthEl, { willChange: 'transform, width, height, left, top, opacity', transformOrigin: '50% 50%', left: '50%', right: 'auto', xPercent: -50, x: 0, top: '110%', width: '66.6667%', opacity: 1, boxSizing: 'border-box', marginLeft: 0, marginRight: 0 })
 
-      // Ensure Necklace and Rings are centered on mobile at init; keep Earrings as-is per request
-      if (neck && rings) {
-        gsap.set([neck, rings], { left: '50%', xPercent: -50 })
-      }
-
       const st = {
         trigger: section,
         start: 'top top',
@@ -236,6 +350,7 @@ function Home() {
       }
 
       const tlScroll = gsap.timeline({ scrollTrigger: st })
+      mobileTlRef.current = tlScroll
 
       // Center image fills the viewport
       tlScroll.to(centerEl, {
@@ -379,19 +494,22 @@ function Home() {
         </div>
 
       {/* Scroll Down indicator (mobile + desktop positioning) */}
-      <div className='fixed z-[9999] text-primary-1 pointer-events-none md:bottom-15 md:right-4 bottom-3 left-1/2 md:left-auto -translate-x-1/2 md:translate-x-0'>
-        <div className='relative w-25 h-25'>
-          <img src={ScrollDown} alt='Scroll Down' className='absolute inset-0 m-auto w-10 h-10 animate-bounce' />
-          <svg viewBox='0 0 100 100' className='absolute inset-0 w-full h-full animate-[spin_12s_linear_infinite]'>
+      <button onClick={handleScrollDown} aria-label={scrollUpMode ? 'Scroll to previous section' : 'Scroll to next section'}
+        className='fixed z-[9999] text-primary-1 pointer-events-auto md:bottom-15 md:right-4 bottom-3 left-1/2 md:left-auto -translate-x-1/2 md:translate-x-0'>
+        <div className='relative w-25 h-25 hover:cursor-pointer'>
+          <img src={ScrollDown} alt='' className={`absolute inset-0 m-auto w-10 h-10 animate-bounce pointer-events-none transition-transform ${scrollUpMode ? 'rotate-180' : ''}`} />
+          <svg viewBox='0 0 100 100' className='absolute inset-0 w-full h-full animate-[spin_12s_linear_infinite] pointer-events-none'>
             <defs>
               <path id='scroll-circle-path' d='M50,50 m-35,0 a35,35 0 1,1 70,0 a35,35 0 1,1 -70,0' />
             </defs>
             <text fontSize='12' className='fill-current'>
-              <textPath href='#scroll-circle-path' startOffset='0%'>SCROLL DOWN • SCROLL DOWN • SCROLL DOWN • </textPath>
+              <textPath href='#scroll-circle-path' startOffset='0%'>
+                {scrollUpMode ? 'SCROLL UP • SCROLL UP • SCROLL UP • ' : 'SCROLL DOWN • SCROLL DOWN • SCROLL DOWN • '}
+              </textPath>
             </text>
           </svg>
         </div>
-      </div>
+      </button>
       
       {/* Mobile layout */}
       <div ref={mobileSectionRef} className='md:hidden relative h-screen w-full bg-secondary-3 overflow-hidden'>
