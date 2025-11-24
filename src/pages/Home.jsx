@@ -176,8 +176,8 @@ function Home() {
     const rings = ringsSvgRef.current
     const ears = earringsSvgRef.current
     if (!neck || !rings || !ears) return
-    gsap.set(neck, { opacity: 1, yPercent: 0 })
-    gsap.set(rings, { opacity: 0, yPercent: 100 })
+    gsap.set(neck, { opacity: 1, yPercent: 0, xPercent: -50, left: '50%' })
+    gsap.set(rings, { opacity: 0, yPercent: 100, xPercent: -50, left: '50%' })
     gsap.set(ears, { opacity: 0, yPercent: 100 })
     gsap.timeline()
       .to(neck, { yPercent: -100, opacity: 0, duration: 0.6, ease: 'power2.inOut', delay: 0.2 })
@@ -246,8 +246,8 @@ function Home() {
           yPercent: 100 
         })
         if (neck && rings && ears) {
-          gsap.set(neck, { opacity: 1, yPercent: 0 })
-          gsap.set(rings, { opacity: 1, yPercent: 100 })
+          gsap.set(neck, { opacity: 1, yPercent: 0, xPercent: -50, left: '50%' })
+          gsap.set(rings, { opacity: 1, yPercent: 100, xPercent: -50, left: '50%' })
           gsap.set(ears, { opacity: 1, yPercent: 100 })
         }
         if (exploreTextRef.current && ringsTextRef.current && earringsTextRef.current) {
@@ -339,8 +339,8 @@ function Home() {
       // Prepare necklaces overlay for mobile: fixed full-screen starting off bottom
       gsap.set(neckEl, { position: 'fixed', top: 0, right: 0, bottom: 0, left: 0, zIndex: 30, yPercent: 100 })
       if (neck && rings && ears) {
-        gsap.set(neck, { opacity: 1, yPercent: 100 })
-        gsap.set(rings, { opacity: 1, yPercent: 100 })
+        gsap.set(neck, { opacity: 1, yPercent: 100, xPercent: -50, left: '50%' })
+        gsap.set(rings, { opacity: 1, yPercent: 100, xPercent: -50, left: '50%' })
         gsap.set(ears, { opacity: 1, yPercent: 100 })
       }
       if (exploreTextRef.current && ringsTextRef.current && earringsTextRef.current) {
